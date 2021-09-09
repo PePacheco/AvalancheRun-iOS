@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34ABC6C626EA8D4D0002F4CD /* GravityScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ABC6C526EA8D4D0002F4CD /* GravityScene.swift */; };
 		6D3D823826EA8A2C00A8A5D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3D823726EA8A2C00A8A5D2 /* AppDelegate.swift */; };
 		6D3D823A26EA8A2C00A8A5D2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6D3D823926EA8A2C00A8A5D2 /* GameScene.sks */; };
 		6D3D823C26EA8A2C00A8A5D2 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6D3D823B26EA8A2C00A8A5D2 /* Actions.sks */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34ABC6C526EA8D4D0002F4CD /* GravityScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityScene.swift; sourceTree = "<group>"; };
 		6D3D823426EA8A2C00A8A5D2 /* AvalancheRun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvalancheRun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D3D823726EA8A2C00A8A5D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D3D823926EA8A2C00A8A5D2 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -39,6 +41,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		34ABC6C426EA8D150002F4CD /* Gravity Scene */ = {
+			isa = PBXGroup;
+			children = (
+				34ABC6C526EA8D4D0002F4CD /* GravityScene.swift */,
+			);
+			path = "Gravity Scene";
+			sourceTree = "<group>";
+		};
 		6D3D822B26EA8A2C00A8A5D2 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +68,7 @@
 		6D3D823626EA8A2C00A8A5D2 /* AvalancheRun */ = {
 			isa = PBXGroup;
 			children = (
+				34ABC6C426EA8D150002F4CD /* Gravity Scene */,
 				6D3D823726EA8A2C00A8A5D2 /* AppDelegate.swift */,
 				6D3D823926EA8A2C00A8A5D2 /* GameScene.sks */,
 				6D3D823B26EA8A2C00A8A5D2 /* Actions.sks */,
@@ -142,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D3D823E26EA8A2C00A8A5D2 /* GameScene.swift in Sources */,
+				34ABC6C626EA8D4D0002F4CD /* GravityScene.swift in Sources */,
 				6D3D824026EA8A2C00A8A5D2 /* GameViewController.swift in Sources */,
 				6D3D823826EA8A2C00A8A5D2 /* AppDelegate.swift in Sources */,
 			);
@@ -283,7 +295,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3XP27NL574;
+				DEVELOPMENT_TEAM = R5QH5STGGP;
 				INFOPLIST_FILE = AvalancheRun/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
