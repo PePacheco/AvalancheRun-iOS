@@ -11,7 +11,8 @@ import CoreMotion
 
 class GravityScene: SKScene, SKPhysicsContactDelegate {
     
-    private var player = SKShapeNode(circleOfRadius: 15)
+    private var player = SKSpriteNode(imageNamed: "Personagem")
+    private var background = SKSpriteNode(imageNamed: "Cenário")
     private var avalanche = SKShapeNode(rectOf: CGSize(width: UIScreen.main.bounds.width, height: 300))
     private var cameraNode = SKCameraNode()
     private var motionManager = CMMotionManager()
@@ -29,6 +30,7 @@ class GravityScene: SKScene, SKPhysicsContactDelegate {
         addCamera()
         createLabel()
         createAvalanche()
+        createBackground()
         physicsWorld.contactDelegate = self
         
         for _ in 0...numberOfFutureGrounds {
@@ -36,12 +38,19 @@ class GravityScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func createBackground() {
+        background.size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        background.position = CGPoint(x: frame.midX, y: frame.midY)
+        background.zPosition = -1
+        addChild(background)
+    }
+ 
     func createPlayer() {
+        let playerConstraints = SKConstraint.orient(to: self, offset: SKRange(constantValue: -CGFloat.pi/2))
+        player.constraints = [playerConstraints]
         player.position = CGPoint(x: (UIScreen.main.bounds.width / 2) + 50, y: 0)
-        player.strokeColor = SKColor.black
-        player.glowWidth = 1.0
-        player.fillColor = SKColor.orange
-        player.physicsBody = SKPhysicsBody(circleOfRadius: 15)
+        player.size = CGSize(width: 50, height: 50)
+        player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         player.physicsBody?.affectedByGravity = true
         player.physicsBody?.isDynamic = true
         player.physicsBody?.categoryBitMask = 0b001
@@ -55,12 +64,15 @@ class GravityScene: SKScene, SKPhysicsContactDelegate {
         avalanche.position = CGPoint(x: UIScreen.main.bounds.width / 2, y: 200)
         avalanche.fillColor = SKColor.white
         avalanche.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: UIScreen.main.bounds.width, height: 300))
+        avalanche.zPosition = 2
+        avalanche.physicsBody?.affectedByGravity = false
+        avalanche.physicsBody?.velocity = CGVector(dx: 0, dy: -100)
         avalanche.physicsBody?.applyForce(CGVector(dx: 0, dy: -20))
         avalanche.physicsBody?.categoryBitMask = 0b010
         avalanche.physicsBody?.collisionBitMask = 0b001
         avalanche.name = "avalanche"
         
-        //addChild(avalanche)
+        addChild(avalanche)
     }
     
     func createLabel() {
@@ -85,26 +97,22 @@ class GravityScene: SKScene, SKPhysicsContactDelegate {
     
     func createGround() {
         let translateX: CGFloat = (UIScreen.main.bounds.width / 100) * CGFloat.random(in: -1*holeTranslationVariant...holeTranslationVariant)
-        let ground = SKShapeNode(rectOf: CGSize(width: 320, height: 25))
+        let ground = SKSpriteNode(imageNamed: "Geleira1")
+        ground.size = CGSize(width: 320, height: 25)
         ground.position.y = CGFloat(grounds * groundHeight)
-        ground.position.x = CGFloat(350 + translateX)
-        ground.strokeColor = SKColor.black
-        ground.glowWidth = 1.0
-        ground.fillColor = SKColor.orange
-        let groundPhysicBody = SKPhysicsBody(rectangleOf: ground.frame.size)
+        ground.position.x = CGFloat(360 + translateX)
+        let groundPhysicBody = SKPhysicsBody(rectangleOf: ground.size)
         
         groundPhysicBody.isDynamic = false
         ground.physicsBody = groundPhysicBody
         ground.physicsBody?.categoryBitMask = 0b100
         ground.physicsBody?.collisionBitMask = 0b001
         
-        let ground2 = SKShapeNode(rectOf: CGSize(width: 320, height: 25))
+        let ground2 = SKSpriteNode(imageNamed: "Geleira2")
+        ground2.size = CGSize(width: 320, height: 25)
         ground2.position.y = CGFloat(grounds * groundHeight)
-        ground2.position.x = CGFloat(-60 + translateX)
-        ground2.strokeColor = SKColor.black
-        ground2.glowWidth = 1.0
-        ground2.fillColor = SKColor.orange
-        let ground2PhysicBody = SKPhysicsBody(rectangleOf: ground.frame.size)
+        ground2.position.x = CGFloat(-70 + translateX)
+        let ground2PhysicBody = SKPhysicsBody(rectangleOf: ground.size)
         
         ground2PhysicBody.isDynamic = false
         ground2.physicsBody = ground2PhysicBody
@@ -148,14 +156,16 @@ class GravityScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         cameraNode.position.y = player.position.y
         pointsLabel.position.y = player.position.y + 150
+        background.position.y = player.position.y
+        
         
         player.position.x -= 5
         
         if self.player.position.x >= UIScreen.main.bounds.maxX {
-            self.player.position.x = UIScreen.main.bounds.minX + 10
+            self.player.position.x = UIScreen.main.bounds.minX + 20
         }
         if self.player.position.x <= UIScreen.main.bounds.minX {
-            self.player.position.x = UIScreen.main.bounds.maxX - 10
+            self.player.position.x = UIScreen.main.bounds.maxX - 20
         }
         
         if Int(player.position.y) + (groundHeight * numberOfFutureGrounds) < grounds * groundHeight {
