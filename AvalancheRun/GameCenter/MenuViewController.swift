@@ -11,7 +11,6 @@ import GameKit
 class MenuViewController: UIViewController {
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,7 +20,6 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func leaderboard(_ sender: Any) {
-        
         let vc = GKGameCenterViewController(leaderboardID: "PenguinFallRanking", playerScope: .global, timeScope: .allTime)
         vc.gameCenterDelegate = self
         present(vc, animated: true, completion: nil)
