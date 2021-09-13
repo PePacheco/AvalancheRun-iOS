@@ -15,7 +15,6 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
             let scene = GravityScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
             
             view.presentScene(scene)
