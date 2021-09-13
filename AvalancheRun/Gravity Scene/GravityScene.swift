@@ -9,7 +9,7 @@ import SpriteKit
 import GameplayKit
 import CoreMotion
 
-class GravityScene: SKScene, SKPhysicsContactDelegate {
+class GravityScene: SKScene {
     
     private var player = SKSpriteNode(imageNamed: "Personagem")
     private var background = SKSpriteNode(imageNamed: "Cenário")
@@ -31,11 +31,13 @@ class GravityScene: SKScene, SKPhysicsContactDelegate {
         createLabel()
         createAvalanche()
         createBackground()
-        physicsWorld.contactDelegate = self
+        
         
         for _ in 0...numberOfFutureGrounds {
             createGround()
         }
+        
+        physicsWorld.contactDelegate = self
     }
     
     func createBackground() {
@@ -44,9 +46,9 @@ class GravityScene: SKScene, SKPhysicsContactDelegate {
         background.zPosition = -1
         addChild(background)
     }
- 
+    
     func createPlayer() {
-        let playerConstraints = SKConstraint.orient(to: self, offset: SKRange(constantValue: -CGFloat.pi/2))
+        let playerConstraints = SKConstraint.orient(to: player, offset: SKRange(constantValue: -CGFloat.pi/2))
         player.constraints = [playerConstraints]
         player.position = CGPoint(x: (UIScreen.main.bounds.width / 2) + 50, y: 0)
         player.size = CGSize(width: 50, height: 50)
@@ -55,6 +57,7 @@ class GravityScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.isDynamic = true
         player.physicsBody?.categoryBitMask = 0b001
         player.physicsBody?.collisionBitMask = 0b110
+        player.physicsBody?.contactTestBitMask = 0b010
         player.name = "player"
         
         addChild(player)
@@ -70,6 +73,7 @@ class GravityScene: SKScene, SKPhysicsContactDelegate {
         avalanche.physicsBody?.applyForce(CGVector(dx: 0, dy: -20))
         avalanche.physicsBody?.categoryBitMask = 0b010
         avalanche.physicsBody?.collisionBitMask = 0b001
+        avalanche.physicsBody?.contactTestBitMask = 0b001
         avalanche.name = "avalanche"
         
         addChild(avalanche)
@@ -144,22 +148,13 @@ class GravityScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func didBegin(_ contact: SKPhysicsContact) {
-        print("nargas com matt hj?")
-        if contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "avalanche" {
-            print("morreu")
-        } else if contact.bodyA.node?.name == "avalanche" && contact.bodyB.node?.name == "player" {
-            print("morreu")
-        }
-    }
+    
     
     override func update(_ currentTime: TimeInterval) {
         cameraNode.position.y = player.position.y
         pointsLabel.position.y = player.position.y + 150
         background.position.y = player.position.y
         
-        
-        player.position.x -= 5
         
         if self.player.position.x >= UIScreen.main.bounds.maxX {
             self.player.position.x = UIScreen.main.bounds.minX + 20
@@ -174,4 +169,14 @@ class GravityScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+}
+
+extension GravityScene: SKPhysicsContactDelegate {
+    func didBegin(_ contact: SKPhysicsContact) {
+        if contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "avalanche" {
+            print("morreu")
+        } else if contact.bodyA.node?.name == "avalanche" && contact.bodyB.node?.name == "player" {
+            print("morreu")
+        }
+    }
 }
