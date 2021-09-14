@@ -8,9 +8,15 @@
 import SpriteKit
 import GameplayKit
 import CoreMotion
+import GameKit
+
+protocol GravitySceneDelegate: AnyObject {
+    func finish()
+}
 
 class GravityScene: SKScene {
     
+    private let localPlayer = GKLocalPlayer.local
     private var player = SKSpriteNode(imageNamed: "Personagem")
     private var background = SKSpriteNode(imageNamed: "Cenário")
     private var avalanche = SKShapeNode(rectOf: CGSize(width: UIScreen.main.bounds.width, height: 300))
@@ -23,6 +29,7 @@ class GravityScene: SKScene {
     private let groundHeight = -120
     private let numberOfFutureGrounds = 10
     private let holeTranslationVariant: CGFloat = 40
+    internal weak var gravitySceneDelegate: GravitySceneDelegate?
     
     override func didMove(to view: SKView) {
         createPlayer()
@@ -173,10 +180,23 @@ class GravityScene: SKScene {
 
 extension GravityScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "avalanche" {
+        if (contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "avalanche") || (contact.bodyA.node?.name == "avalanche" && contact.bodyB.node?.name == "player") {
             print("morreu")
-        } else if contact.bodyA.node?.name == "avalanche" && contact.bodyB.node?.name == "player" {
-            print("morreu")
+            
+//            let score = UserDefaults.standard.integer(forKey: "highscore")
+//            if score != 0 {
+//                if points > score {
+//                    UserDefaults.setValue(points, forKeyPath: "highscore")
+//                }
+//            } else {
+//                UserDefaults.setValue(points, forKeyPath: "highscore")
+//            }
+//            
+            GKLeaderboard.submitScore(points, context: 0, player: localPlayer, leaderboardIDs: ["PenguinFallRanking"], completionHandler: {[weak self]error in
+                guard let self = self else { return }
+                self.gravitySceneDelegate?.finish()
+            })
+            
         }
     }
 }

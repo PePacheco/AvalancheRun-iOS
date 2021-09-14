@@ -17,6 +17,7 @@ class GameViewController: UIViewController {
         if let view = self.view as! SKView? {
             let scene = GravityScene(size: view.bounds.size)
             scene.scaleMode = .resizeFill
+            scene.gravitySceneDelegate = self
             view.presentScene(scene)
             
             view.ignoresSiblingOrder = true
@@ -25,6 +26,10 @@ class GameViewController: UIViewController {
             //view.showsNodeCount = true
             //view.showsPhysics = true
         }
+    }
+    
+    func menu() {
+        print("oi")
     }
     
     override var shouldAutorotate: Bool {
@@ -41,5 +46,11 @@ class GameViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool {
         return false
+    }
+}
+
+extension GameViewController: GravitySceneDelegate {
+    func finish() {
+        navigationController?.popViewController(animated: true)
     }
 }
