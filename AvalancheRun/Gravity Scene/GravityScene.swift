@@ -179,19 +179,20 @@ class GravityScene: SKScene {
 }
 
 extension GravityScene: SKPhysicsContactDelegate {
+    
+    private func handleSetScore() {
+        let score = UserDefaults.standard.integer(forKey: UserDefaultsValues.HIGHEST_SCORE.rawValue)
+        if points > score {
+            UserDefaults.standard.set(points, forKey: UserDefaultsValues.HIGHEST_SCORE.rawValue)
+           
+        }
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         if (contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "avalanche") || (contact.bodyA.node?.name == "avalanche" && contact.bodyB.node?.name == "player") {
             print("morreu")
             
-//            let score = UserDefaults.standard.integer(forKey: "highscore")
-//            if score != 0 {
-//                if points > score {
-//                    UserDefaults.setValue(points, forKeyPath: "highscore")
-//                }
-//            } else {
-//                UserDefaults.setValue(points, forKeyPath: "highscore")
-//            }
-//            
+            handleSetScore()
             GKLeaderboard.submitScore(points, context: 0, player: localPlayer, leaderboardIDs: ["PenguinFallRanking"], completionHandler: {[weak self]error in
                 guard let self = self else { return }
                 self.gravitySceneDelegate?.finish()

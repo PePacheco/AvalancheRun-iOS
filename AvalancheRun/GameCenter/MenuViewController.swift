@@ -23,6 +23,11 @@ class MenuViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let highestScore =  UserDefaults.standard.integer(forKey: UserDefaultsValues.HIGHEST_SCORE.rawValue)
+        countLabel.text = "\(highestScore)"
+    }
+    
     @IBAction func leaderboard(_ sender: Any) {
         let vc = GKGameCenterViewController(leaderboardID: "PenguinFallRanking", playerScope: .global, timeScope: .allTime)
         vc.gameCenterDelegate = self
