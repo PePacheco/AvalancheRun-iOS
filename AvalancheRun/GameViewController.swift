@@ -15,8 +15,8 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            let scene = GravityScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-            
+            let scene = GravityScene(size: view.bounds.size)
+            scene.scaleMode = .resizeFill
             view.presentScene(scene)
             
             view.ignoresSiblingOrder = true
@@ -28,7 +28,7 @@ class GameViewController: UIViewController {
     }
     
     override var shouldAutorotate: Bool {
-        return true
+        return false
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -40,6 +40,6 @@ class GameViewController: UIViewController {
     }
     
     override var prefersStatusBarHidden: Bool {
-        return true
+        return false
     }
 }

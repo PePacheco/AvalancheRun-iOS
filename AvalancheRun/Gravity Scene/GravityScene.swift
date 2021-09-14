@@ -85,7 +85,7 @@ class GravityScene: SKScene {
         pointsLabel.position.x = UIScreen.main.bounds.width / 2
         pointsLabel.position.y = 100
         pointsLabel.text = String(points)
-        
+        pointsLabel.zPosition = 3
         addChild(pointsLabel)
     }
     
