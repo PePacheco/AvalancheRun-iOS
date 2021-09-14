@@ -184,20 +184,29 @@ extension GravityScene: SKPhysicsContactDelegate {
         let score = UserDefaults.standard.integer(forKey: UserDefaultsValues.HIGHEST_SCORE.rawValue)
         if points > score {
             UserDefaults.standard.set(points, forKey: UserDefaultsValues.HIGHEST_SCORE.rawValue)
-           
+            
         }
     }
     
-    func didBegin(_ contact: SKPhysicsContact) {
-        if (contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "avalanche") || (contact.bodyA.node?.name == "avalanche" && contact.bodyB.node?.name == "player") {
-            print("morreu")
-            
-            handleSetScore()
-            GKLeaderboard.submitScore(points, context: 0, player: localPlayer, leaderboardIDs: ["PenguinFallRanking"], completionHandler: {[weak self]error in
+    private func handleGameEnd() {
+        handleSetScore()
+        
+        GKLeaderboard.submitScore(
+            points,
+            context: 0,
+            player: localPlayer,
+            leaderboardIDs: ["PenguinFallRanking"],
+            completionHandler: { [weak self] error in
                 guard let self = self else { return }
+                sleep(1)
                 self.gravitySceneDelegate?.finish()
             })
-            
+    }
+    
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        if (contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "avalanche") || (contact.bodyA.node?.name == "avalanche" && contact.bodyB.node?.name == "player") {
+            handleGameEnd()
         }
     }
 }

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Avalanche1x.png",
+      "filename" : "Avalanchev2-1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Avalanche2x.png",
+      "filename" : "Avalanchev2-2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Avalanche3x.png",
+      "filename" : "Avalanchev2-3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
