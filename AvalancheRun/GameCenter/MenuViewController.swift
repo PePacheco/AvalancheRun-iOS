@@ -10,12 +10,16 @@ import GameKit
 
 class MenuViewController: UIViewController {
     
+    @IBOutlet var menu: UIView!
+    @IBOutlet var countLabel: UILabel!
+    @IBOutlet var playButton: UIButton!
+    @IBOutlet var leaderboardButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         authenticateUser()
-        
+        configureStyle()
         // Do any additional setup after loading the view.
     }
     
@@ -23,6 +27,17 @@ class MenuViewController: UIViewController {
         let vc = GKGameCenterViewController(leaderboardID: "PenguinFallRanking", playerScope: .global, timeScope: .allTime)
         vc.gameCenterDelegate = self
         present(vc, animated: true, completion: nil)
+    }
+    
+    func configureStyle() {
+        //menu container
+        self.menu.layer.cornerRadius = 8
+        
+        //play button
+        self.playButton.layer.cornerRadius = 8
+        
+        //leaderboard button
+        self.leaderboardButton.layer.cornerRadius = 8
     }
     
     private func authenticateUser() {

@@ -28,10 +28,6 @@ class GameViewController: UIViewController {
         }
     }
     
-    func menu() {
-        print("oi")
-    }
-    
     override var shouldAutorotate: Bool {
         return false
     }
