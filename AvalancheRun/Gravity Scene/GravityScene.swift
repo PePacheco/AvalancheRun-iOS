@@ -65,7 +65,7 @@ class GravityScene: SKScene {
         let playerConstraints = SKConstraint.orient(to: player, offset: SKRange(constantValue: -CGFloat.pi/2))
         player.constraints = [playerConstraints]
         player.position = CGPoint(x: (UIScreen.main.bounds.width / 2) + 50, y: 0)
-        player.size = CGSize(width: 50, height: 50)
+        player.size = CGSize(width: 72 * 0.8, height: 57 * 0.8)
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         player.physicsBody?.affectedByGravity = true
         player.physicsBody?.isDynamic = true
