@@ -123,11 +123,12 @@ class GravityScene: SKScene {
     
     func createLabel() {
         pointsLabel.fontSize = 32
-        pointsLabel.fontColor = UIColor.systemPink
+        pointsLabel.fontColor = UIColor.black
         pointsLabel.position.x = UIScreen.main.bounds.width / 2
         pointsLabel.position.y = 100
         pointsLabel.text = String(points)
         pointsLabel.zPosition = 4
+        pointsLabel.fontName = "AvenirNext-Bold"
         addChild(pointsLabel)
     }
     
@@ -194,7 +195,12 @@ class GravityScene: SKScene {
         if avalancheContainer.position.y + CGFloat(Avalanche.height / 2) - cameraNode.position.y > UIScreen.main.bounds.height / 2 {
             avalancheContainer.position.y = cameraNode.position.y + ((UIScreen.main.bounds.height - Avalanche.height) / 2)
         }
-        avalancheContainer.position.y -= CGFloat(deltaTime * (70 + Double(points)))
+        if points > 100 {
+            avalancheContainer.position.y -= CGFloat(deltaTime * (70 + Double(points) * 0.2))
+        } else {
+            avalancheContainer.position.y -= CGFloat(deltaTime * (70 + Double(points)))
+        }
+        
     }
     
     override func update(_ currentTime: TimeInterval) {
