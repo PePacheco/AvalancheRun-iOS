@@ -8,12 +8,24 @@
 import SpriteKit
 import GameplayKit
 import CoreMotion
+import GameKit
+
+protocol GravitySceneDelegate: AnyObject {
+    func finish()
+}
+
+struct Avalanche {
+    static let height: CGFloat = 400
+    static let initialPosition: CGFloat = 300
+    static let force: CGFloat = -40
+}
 
 class GravityScene: SKScene {
-    
+    private let localPlayer = GKLocalPlayer.local
     private var player = SKSpriteNode(imageNamed: "Personagem")
     private var background = SKSpriteNode(imageNamed: "Cenário")
-    private var avalanche = SKShapeNode(rectOf: CGSize(width: UIScreen.main.bounds.width, height: 300))
+    private var avalancheContainer = SKNode()
+    private var avalanche = SKShapeNode(rectOf: CGSize(width: UIScreen.main.bounds.width, height: Avalanche.height))
     private var cameraNode = SKCameraNode()
     private var motionManager = CMMotionManager()
     private var pointsLabel = SKLabelNode()
@@ -23,6 +35,8 @@ class GravityScene: SKScene {
     private let groundHeight = -120
     private let numberOfFutureGrounds = 10
     private let holeTranslationVariant: CGFloat = 40
+    private var oldCurrentTime: Double = -1
+    internal weak var gravitySceneDelegate: GravitySceneDelegate?
     
     override func didMove(to view: SKView) {
         createPlayer()
@@ -51,7 +65,7 @@ class GravityScene: SKScene {
         let playerConstraints = SKConstraint.orient(to: player, offset: SKRange(constantValue: -CGFloat.pi/2))
         player.constraints = [playerConstraints]
         player.position = CGPoint(x: (UIScreen.main.bounds.width / 2) + 50, y: 0)
-        player.size = CGSize(width: 50, height: 50)
+        player.size = CGSize(width: 72 * 0.8, height: 57 * 0.8)
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         player.physicsBody?.affectedByGravity = true
         player.physicsBody?.isDynamic = true
@@ -64,28 +78,57 @@ class GravityScene: SKScene {
     }
     
     func createAvalanche() {
-        avalanche.position = CGPoint(x: UIScreen.main.bounds.width / 2, y: 200)
+        //container
+        
+        avalancheContainer.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 1, height: 1))
+        avalancheContainer.physicsBody?.affectedByGravity = false
+        avalancheContainer.physicsBody?.isDynamic = false
+        avalancheContainer.physicsBody?.velocity = CGVector(dx: 0, dy: -100)
+        //      avalancheContainer.physicsBody?.applyForce(CGVector(dx: 0, dy: Avalanche.force))
+        //      avalancheContainer.physicsBody?.applyImpulse(CGVector(dx: 0, dy: Avalanche.force))
+        
+        avalancheContainer.physicsBody?.categoryBitMask = 0b1000
+        avalancheContainer.physicsBody?.collisionBitMask = 0b1000
+        
+        //body
+        avalanche.position = CGPoint(x: UIScreen.main.bounds.width / 2, y: Avalanche.initialPosition)
         avalanche.fillColor = SKColor.white
-        avalanche.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: UIScreen.main.bounds.width, height: 300))
+        avalanche.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: UIScreen.main.bounds.width, height: Avalanche.height))
         avalanche.zPosition = 2
         avalanche.physicsBody?.affectedByGravity = false
-        avalanche.physicsBody?.velocity = CGVector(dx: 0, dy: -100)
-        avalanche.physicsBody?.applyForce(CGVector(dx: 0, dy: -20))
+        avalanche.physicsBody?.isDynamic = false
         avalanche.physicsBody?.categoryBitMask = 0b010
         avalanche.physicsBody?.collisionBitMask = 0b001
         avalanche.physicsBody?.contactTestBitMask = 0b001
         avalanche.name = "avalanche"
         
-        addChild(avalanche)
+        
+        //bottom
+        let avalancheBottom = SKSpriteNode(imageNamed: "Avalanche")
+        avalancheBottom.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: UIScreen.main.bounds.width, height: 20))
+        avalancheBottom.position.y = Avalanche.initialPosition - (Avalanche.height / 2)
+        avalancheBottom.physicsBody?.affectedByGravity = false
+        avalancheBottom.physicsBody?.isDynamic = false
+        
+        avalancheBottom.position.x = UIScreen.main.bounds.width / 2
+        avalancheBottom.zPosition = 3
+        avalancheBottom.physicsBody?.categoryBitMask = 0b1000
+        avalancheBottom.physicsBody?.collisionBitMask = 0b1000
+        
+        
+        avalancheContainer.addChild(avalanche)
+        avalancheContainer.addChild(avalancheBottom)
+        addChild(avalancheContainer)
     }
     
     func createLabel() {
         pointsLabel.fontSize = 32
-        pointsLabel.fontColor = UIColor.systemPink
+        pointsLabel.fontColor = UIColor.black
         pointsLabel.position.x = UIScreen.main.bounds.width / 2
         pointsLabel.position.y = 100
         pointsLabel.text = String(points)
-        
+        pointsLabel.zPosition = 4
+        pointsLabel.fontName = "AvenirNext-Bold"
         addChild(pointsLabel)
     }
     
@@ -148,19 +191,36 @@ class GravityScene: SKScene {
         }
     }
     
-    
+    private func updateAvalanchePosition(_ deltaTime: TimeInterval) {
+        if avalancheContainer.position.y + CGFloat(Avalanche.height / 2) - cameraNode.position.y > UIScreen.main.bounds.height / 2 {
+            avalancheContainer.position.y = cameraNode.position.y + ((UIScreen.main.bounds.height - Avalanche.height) / 2)
+        }
+        if points > 100 {
+            avalancheContainer.position.y -= CGFloat(deltaTime * (70 + Double(points) * 0.2))
+        } else {
+            avalancheContainer.position.y -= CGFloat(deltaTime * (70 + Double(points)))
+        }
+        
+    }
     
     override func update(_ currentTime: TimeInterval) {
+        if oldCurrentTime == -1 {
+            oldCurrentTime = currentTime
+        }
+        
+        let deltaTime = currentTime - oldCurrentTime
+        oldCurrentTime = currentTime
+        updateAvalanchePosition(deltaTime)
+        
         cameraNode.position.y = player.position.y
         pointsLabel.position.y = player.position.y + 150
         background.position.y = player.position.y
         
-        
-        if self.player.position.x >= UIScreen.main.bounds.maxX {
-            self.player.position.x = UIScreen.main.bounds.minX + 20
+        if self.player.position.x > UIScreen.main.bounds.maxX {
+            self.player.position.x = UIScreen.main.bounds.minX + 10
         }
-        if self.player.position.x <= UIScreen.main.bounds.minX {
-            self.player.position.x = UIScreen.main.bounds.maxX - 20
+        if self.player.position.x < UIScreen.main.bounds.minX {
+            self.player.position.x = UIScreen.main.bounds.maxX - 10
         }
         
         if Int(player.position.y) + (groundHeight * numberOfFutureGrounds) < grounds * groundHeight {
@@ -172,11 +232,33 @@ class GravityScene: SKScene {
 }
 
 extension GravityScene: SKPhysicsContactDelegate {
+    
+    private func handleSetScore() {
+        let score = UserDefaults.standard.integer(forKey: UserDefaultsValues.HIGHEST_SCORE.rawValue)
+        if points > score {
+            UserDefaults.standard.set(points, forKey: UserDefaultsValues.HIGHEST_SCORE.rawValue)
+            
+        }
+    }
+    
+    private func handleGameEnd() {
+        handleSetScore()
+        GKLeaderboard.submitScore(
+            points,
+            context: 0,
+            player: localPlayer,
+            leaderboardIDs: ["PenguinFallRanking"],
+            completionHandler: { [weak self] error in
+                guard let self = self else { return }
+                sleep(1)
+                self.gravitySceneDelegate?.finish()
+            })
+    }
+    
+    
     func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "avalanche" {
-            print("morreu")
-        } else if contact.bodyA.node?.name == "avalanche" && contact.bodyB.node?.name == "player" {
-            print("morreu")
+        if (contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "avalanche") || (contact.bodyA.node?.name == "avalanche" && contact.bodyB.node?.name == "player") {
+            handleGameEnd()
         }
     }
 }

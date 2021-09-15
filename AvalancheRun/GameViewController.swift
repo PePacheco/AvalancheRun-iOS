@@ -15,20 +15,21 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            let scene = GravityScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-            
+            let scene = GravityScene(size: view.bounds.size)
+            scene.scaleMode = .resizeFill
+            scene.gravitySceneDelegate = self
             view.presentScene(scene)
             
             view.ignoresSiblingOrder = true
             
             //view.showsFPS = true
             //view.showsNodeCount = true
-            //view.showsPhysics = true
+//            view.showsPhysics = true
         }
     }
     
     override var shouldAutorotate: Bool {
-        return true
+        return false
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -40,6 +41,12 @@ class GameViewController: UIViewController {
     }
     
     override var prefersStatusBarHidden: Bool {
-        return true
+        return false
+    }
+}
+
+extension GameViewController: GravitySceneDelegate {
+    func finish() {
+        navigationController?.popViewController(animated: true)
     }
 }
