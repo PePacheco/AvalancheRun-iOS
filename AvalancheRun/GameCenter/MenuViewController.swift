@@ -7,6 +7,7 @@
 
 import UIKit
 import GameKit
+import GoogleMobileAds
 
 class MenuViewController: UIViewController {
     
@@ -15,12 +16,29 @@ class MenuViewController: UIViewController {
     @IBOutlet var playButton: UIButton!
     @IBOutlet var leaderboardButton: UIButton!
     
+    var banner: GADBannerView = {
+        let banner = GADBannerView()
+        banner.adUnitID = "ca-app-pub-8306533236766828/6137884667"
+        banner.load(GADRequest())
+        banner.backgroundColor = .secondarySystemBackground
+        return banner
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         authenticateUser()
         configureStyle()
-        // Do any additional setup after loading the view.
+
+        banner.rootViewController = self
+        view.addSubview(banner)
+        
+        //banner.delegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        banner.frame = CGRect(x: 0, y: view.frame.size.height-50, width: view.frame.size.width, height: 50).integral
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,6 +61,27 @@ class MenuViewController: UIViewController {
         
         //leaderboard button
         self.leaderboardButton.layer.cornerRadius = 8
+    }
+    
+    private func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: view.safeAreaLayoutGuide.bottomAnchor,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
     }
     
     private func authenticateUser() {
@@ -70,4 +109,11 @@ extension MenuViewController: GKGameCenterControllerDelegate {
     }
     
     
+}
+
+extension MenuViewController: GADBannerViewDelegate {
+//    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+//        addBannerViewToView(bannerView)
+//        print("aparecer")
+//    }
 }

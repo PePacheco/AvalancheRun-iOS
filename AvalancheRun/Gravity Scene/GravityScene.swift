@@ -16,7 +16,7 @@ protocol GravitySceneDelegate: AnyObject {
 
 struct Avalanche {
     static let height: CGFloat = 400
-    static let initialPosition: CGFloat = 300
+    static let initialPosition: CGFloat = 350
     static let force: CGFloat = -40
 }
 
@@ -45,7 +45,6 @@ class GravityScene: SKScene {
         createLabel()
         createAvalanche()
         createBackground()
-        
         
         for _ in 0...numberOfFutureGrounds {
             createGround()
