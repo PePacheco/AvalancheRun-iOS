@@ -84,14 +84,12 @@ class GravityScene: SKScene {
         avalancheContainer.physicsBody?.affectedByGravity = false
         avalancheContainer.physicsBody?.isDynamic = false
         avalancheContainer.physicsBody?.velocity = CGVector(dx: 0, dy: -100)
-        //      avalancheContainer.physicsBody?.applyForce(CGVector(dx: 0, dy: Avalanche.force))
-        //      avalancheContainer.physicsBody?.applyImpulse(CGVector(dx: 0, dy: Avalanche.force))
         
         avalancheContainer.physicsBody?.categoryBitMask = 0b1000
         avalancheContainer.physicsBody?.collisionBitMask = 0b1000
         
         //body
-        avalanche.position = CGPoint(x: UIScreen.main.bounds.width / 2, y: Avalanche.initialPosition)
+        avalanche.position = CGPoint(x: UIScreen.main.bounds.width / 2, y: Avalanche.initialPosition + 100)
         avalanche.fillColor = SKColor.white
         avalanche.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: UIScreen.main.bounds.width, height: Avalanche.height))
         avalanche.zPosition = 2
@@ -195,11 +193,8 @@ class GravityScene: SKScene {
         if avalancheContainer.position.y + CGFloat(Avalanche.height / 2) - cameraNode.position.y > UIScreen.main.bounds.height / 2 {
             avalancheContainer.position.y = cameraNode.position.y + ((UIScreen.main.bounds.height - Avalanche.height) / 2)
         }
-        if points > 100 {
-            avalancheContainer.position.y -= CGFloat(deltaTime * (70 + Double(points) * 0.2))
-        } else {
-            avalancheContainer.position.y -= CGFloat(deltaTime * (70 + Double(points)))
-        }
+        
+        avalancheContainer.position.y -= CGFloat(deltaTime * (70 + Double(points)))
         
     }
     
