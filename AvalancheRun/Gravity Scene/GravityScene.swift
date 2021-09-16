@@ -83,7 +83,6 @@ class GravityScene: SKScene {
         avalancheContainer.physicsBody?.affectedByGravity = false
         avalancheContainer.physicsBody?.isDynamic = false
         avalancheContainer.physicsBody?.velocity = CGVector(dx: 0, dy: -100)
-        
         avalancheContainer.physicsBody?.categoryBitMask = 0b1000
         avalancheContainer.physicsBody?.collisionBitMask = 0b1000
         
@@ -99,20 +98,17 @@ class GravityScene: SKScene {
         avalanche.physicsBody?.contactTestBitMask = 0b001
         avalanche.name = "avalanche"
         
-        
         //bottom
         let avalancheBottom = SKSpriteNode(imageNamed: "Avalanche")
         avalancheBottom.size.width = UIScreen.main.bounds.width + 50
         avalancheBottom.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: UIScreen.main.bounds.width, height: 20))
         avalancheBottom.position.y = Avalanche.initialPosition - (Avalanche.height / 2)
-        avalancheBottom.physicsBody?.affectedByGravity = false
-        avalancheBottom.physicsBody?.isDynamic = false
-        
         avalancheBottom.position.x = UIScreen.main.bounds.width / 2
         avalancheBottom.zPosition = 3
+        avalancheBottom.physicsBody?.affectedByGravity = false
+        avalancheBottom.physicsBody?.isDynamic = false
         avalancheBottom.physicsBody?.categoryBitMask = 0b1000
         avalancheBottom.physicsBody?.collisionBitMask = 0b1000
-        
         
         avalancheContainer.addChild(avalanche)
         avalancheContainer.addChild(avalancheBottom)
@@ -230,7 +226,6 @@ extension GravityScene: SKPhysicsContactDelegate {
         let score = UserDefaults.standard.integer(forKey: UserDefaultsValues.HIGHEST_SCORE.rawValue)
         if points > score {
             UserDefaults.standard.set(points, forKey: UserDefaultsValues.HIGHEST_SCORE.rawValue)
-            
         }
     }
     
@@ -247,7 +242,6 @@ extension GravityScene: SKPhysicsContactDelegate {
                 self.gravitySceneDelegate?.finish()
             })
     }
-    
     
     func didBegin(_ contact: SKPhysicsContact) {
         if (contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "avalanche") || (contact.bodyA.node?.name == "avalanche" && contact.bodyB.node?.name == "player") {

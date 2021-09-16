@@ -78,13 +78,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4E9D4D1F26EFC27200774856 /* GameCenter */ = {
+		4E9D4D1F26EFC27200774856 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
 				4E9D4D1D26EFC26700774856 /* Menu.storyboard */,
 				4E9D4D1926EFBBF900774856 /* MenuViewController.swift */,
 			);
-			path = GameCenter;
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		6D3D822B26EA8A2C00A8A5D2 = {
@@ -109,7 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				3413875C26F1328B001B059C /* Services */,
-				4E9D4D1F26EFC27200774856 /* GameCenter */,
+				4E9D4D1F26EFC27200774856 /* Menu */,
 				34ABC6C426EA8D150002F4CD /* Gravity Scene */,
 				6D3D823726EA8A2C00A8A5D2 /* AppDelegate.swift */,
 				6D3D823F26EA8A2C00A8A5D2 /* GameViewController.swift */,
@@ -390,13 +390,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3XP27NL574;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AvalancheRun/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pedropacheco5.AvalancheRun;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pedropacheco.AvalancheRun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -410,13 +410,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3XP27NL574;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AvalancheRun/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pedropacheco5.AvalancheRun;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pedropacheco.AvalancheRun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

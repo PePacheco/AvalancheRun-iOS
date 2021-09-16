@@ -20,9 +20,9 @@ class MenuViewController: UIViewController {
     
     var banner: GADBannerView = {
         let banner = GADBannerView()
-        banner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        banner.adUnitID = "ca-app-pub-8306533236766828/6137884667"
         banner.load(GADRequest())
-        banner.backgroundColor = .gray
+        banner.backgroundColor = .white
         return banner
     }()
     
@@ -65,27 +65,6 @@ class MenuViewController: UIViewController {
         self.leaderboardButton.layer.cornerRadius = 8
     }
     
-//    private func addBannerViewToView(_ bannerView: GADBannerView) {
-//        bannerView.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(bannerView)
-//        view.addConstraints(
-//            [NSLayoutConstraint(item: bannerView,
-//                                attribute: .bottom,
-//                                relatedBy: .equal,
-//                                toItem: view.safeAreaLayoutGuide.bottomAnchor,
-//                                attribute: .top,
-//                                multiplier: 1,
-//                                constant: 0),
-//             NSLayoutConstraint(item: bannerView,
-//                                attribute: .centerX,
-//                                relatedBy: .equal,
-//                                toItem: view,
-//                                attribute: .centerX,
-//                                multiplier: 1,
-//                                constant: 0)
-//            ])
-//    }
-    
     private func authenticateUser() {
         let player = GKLocalPlayer.local
         
@@ -96,8 +75,7 @@ class MenuViewController: UIViewController {
             }
             
             if let vc = vc {
-                self.present(vc, animated: true, completion: nil)
-                
+                self.present(vc, animated: true, completion: nil) 
             }
         }
     }
@@ -110,13 +88,3 @@ extension MenuViewController: GKGameCenterControllerDelegate {
     }
 }
 
-//extension MenuViewController: GADBannerViewDelegate {
-//    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-//        addBannerViewToView(bannerView)
-//        print("aparecer")
-//    }
-//
-//    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
-//        print(error)
-//    }
-//}
