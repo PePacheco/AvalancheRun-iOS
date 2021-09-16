@@ -15,8 +15,8 @@ protocol GravitySceneDelegate: AnyObject {
 }
 
 struct Avalanche {
-    static let height: CGFloat = 400
-    static let initialPosition: CGFloat = 350
+    static let height: CGFloat = 600
+    static let initialPosition: CGFloat = 550
     static let force: CGFloat = -40
 }
 
@@ -88,7 +88,7 @@ class GravityScene: SKScene {
         avalancheContainer.physicsBody?.collisionBitMask = 0b1000
         
         //body
-        avalanche.position = CGPoint(x: UIScreen.main.bounds.width / 2, y: Avalanche.initialPosition + 100)
+        avalanche.position = CGPoint(x: UIScreen.main.bounds.width / 2, y: Avalanche.initialPosition)
         avalanche.fillColor = SKColor.white
         avalanche.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: UIScreen.main.bounds.width, height: Avalanche.height))
         avalanche.zPosition = 2
@@ -102,6 +102,7 @@ class GravityScene: SKScene {
         
         //bottom
         let avalancheBottom = SKSpriteNode(imageNamed: "Avalanche")
+        avalancheBottom.size.width = UIScreen.main.bounds.width + 50
         avalancheBottom.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: UIScreen.main.bounds.width, height: 20))
         avalancheBottom.position.y = Avalanche.initialPosition - (Avalanche.height / 2)
         avalancheBottom.physicsBody?.affectedByGravity = false
@@ -194,7 +195,6 @@ class GravityScene: SKScene {
         }
         
         avalancheContainer.position.y -= CGFloat(deltaTime * (70 + Double(points)))
-        
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -222,7 +222,6 @@ class GravityScene: SKScene {
             updateLabel()
         }
     }
-    
 }
 
 extension GravityScene: SKPhysicsContactDelegate {
