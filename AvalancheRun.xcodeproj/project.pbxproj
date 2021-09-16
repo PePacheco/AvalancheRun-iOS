@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		6D3D824026EA8A2C00A8A5D2 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3D823F26EA8A2C00A8A5D2 /* GameViewController.swift */; };
 		6D3D824326EA8A2C00A8A5D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D3D824126EA8A2C00A8A5D2 /* Main.storyboard */; };
 		6D3D824526EA8A2D00A8A5D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D3D824426EA8A2D00A8A5D2 /* Assets.xcassets */; };
+		89BED2EBC9F79419E424CEE7 /* Pods_AvalancheRun.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB48BCE5C22FA284B17D4161 /* Pods_AvalancheRun.framework */; };
 		DE7AD7B326EBC4F5008584F7 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7AD7B226EBC4F5008584F7 /* Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,12 +26,16 @@
 		4E9D4D1726EFB9E700774856 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		4E9D4D1926EFBBF900774856 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		4E9D4D1D26EFC26700774856 /* Menu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
+		5FDD185A00B85DD2EAD9703E /* Pods-AvalancheRun.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvalancheRun.debug.xcconfig"; path = "Target Support Files/Pods-AvalancheRun/Pods-AvalancheRun.debug.xcconfig"; sourceTree = "<group>"; };
 		6D3D823426EA8A2C00A8A5D2 /* AvalancheRun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvalancheRun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D3D823726EA8A2C00A8A5D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D3D823F26EA8A2C00A8A5D2 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		6D3D824226EA8A2C00A8A5D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6D3D824426EA8A2D00A8A5D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6D3D824626EA8A2D00A8A5D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6D8CF19126F2B10F00F0317B /* GoogleMobileAds.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleMobileAds.xcframework; path = "Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework"; sourceTree = "<group>"; };
+		77A02C2162192741E420DAD5 /* Pods-AvalancheRun.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvalancheRun.release.xcconfig"; path = "Target Support Files/Pods-AvalancheRun/Pods-AvalancheRun.release.xcconfig"; sourceTree = "<group>"; };
+		AB48BCE5C22FA284B17D4161 /* Pods_AvalancheRun.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AvalancheRun.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE7AD7B226EBC4F5008584F7 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -40,6 +45,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E9D4D1826EFB9E700774856 /* GameKit.framework in Frameworks */,
+				89BED2EBC9F79419E424CEE7 /* Pods_AvalancheRun.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,18 +71,20 @@
 		4E9D4D1626EFB9E700774856 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D8CF19126F2B10F00F0317B /* GoogleMobileAds.xcframework */,
 				4E9D4D1726EFB9E700774856 /* GameKit.framework */,
+				AB48BCE5C22FA284B17D4161 /* Pods_AvalancheRun.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4E9D4D1F26EFC27200774856 /* GameCenter */ = {
+		4E9D4D1F26EFC27200774856 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
 				4E9D4D1D26EFC26700774856 /* Menu.storyboard */,
 				4E9D4D1926EFBBF900774856 /* MenuViewController.swift */,
 			);
-			path = GameCenter;
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		6D3D822B26EA8A2C00A8A5D2 = {
@@ -85,6 +93,7 @@
 				6D3D823626EA8A2C00A8A5D2 /* AvalancheRun */,
 				6D3D823526EA8A2C00A8A5D2 /* Products */,
 				4E9D4D1626EFB9E700774856 /* Frameworks */,
+				87C44A2CA41C5C580E9AAC2B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,7 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				3413875C26F1328B001B059C /* Services */,
-				4E9D4D1F26EFC27200774856 /* GameCenter */,
+				4E9D4D1F26EFC27200774856 /* Menu */,
 				34ABC6C426EA8D150002F4CD /* Gravity Scene */,
 				6D3D823726EA8A2C00A8A5D2 /* AppDelegate.swift */,
 				6D3D823F26EA8A2C00A8A5D2 /* GameViewController.swift */,
@@ -112,6 +121,15 @@
 			path = AvalancheRun;
 			sourceTree = "<group>";
 		};
+		87C44A2CA41C5C580E9AAC2B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5FDD185A00B85DD2EAD9703E /* Pods-AvalancheRun.debug.xcconfig */,
+				77A02C2162192741E420DAD5 /* Pods-AvalancheRun.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,9 +137,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6D3D824926EA8A2D00A8A5D2 /* Build configuration list for PBXNativeTarget "AvalancheRun" */;
 			buildPhases = (
+				9D37C77CA321FC09D8077A58 /* [CP] Check Pods Manifest.lock */,
 				6D3D823026EA8A2C00A8A5D2 /* Sources */,
 				6D3D823126EA8A2C00A8A5D2 /* Frameworks */,
 				6D3D823226EA8A2C00A8A5D2 /* Resources */,
+				C34690A3F729C264D5059945 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,6 +196,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9D37C77CA321FC09D8077A58 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AvalancheRun-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C34690A3F729C264D5059945 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AvalancheRun/Pods-AvalancheRun-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AvalancheRun/Pods-AvalancheRun-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AvalancheRun/Pods-AvalancheRun-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6D3D823026EA8A2C00A8A5D2 /* Sources */ = {
@@ -323,11 +385,12 @@
 		};
 		6D3D824A26EA8A2D00A8A5D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FDD185A00B85DD2EAD9703E /* Pods-AvalancheRun.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 478594C4R9;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AvalancheRun/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -342,11 +405,12 @@
 		};
 		6D3D824B26EA8A2D00A8A5D2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77A02C2162192741E420DAD5 /* Pods-AvalancheRun.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 478594C4R9;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AvalancheRun/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -15,8 +15,8 @@ protocol GravitySceneDelegate: AnyObject {
 }
 
 struct Avalanche {
-    static let height: CGFloat = 400
-    static let initialPosition: CGFloat = 300
+    static let height: CGFloat = 600
+    static let initialPosition: CGFloat = 550
     static let force: CGFloat = -40
 }
 
@@ -45,7 +45,6 @@ class GravityScene: SKScene {
         createLabel()
         createAvalanche()
         createBackground()
-        
         
         for _ in 0...numberOfFutureGrounds {
             createGround()
@@ -84,12 +83,11 @@ class GravityScene: SKScene {
         avalancheContainer.physicsBody?.affectedByGravity = false
         avalancheContainer.physicsBody?.isDynamic = false
         avalancheContainer.physicsBody?.velocity = CGVector(dx: 0, dy: -100)
-        
         avalancheContainer.physicsBody?.categoryBitMask = 0b1000
         avalancheContainer.physicsBody?.collisionBitMask = 0b1000
         
         //body
-        avalanche.position = CGPoint(x: UIScreen.main.bounds.width / 2, y: Avalanche.initialPosition + 100)
+        avalanche.position = CGPoint(x: UIScreen.main.bounds.width / 2, y: Avalanche.initialPosition)
         avalanche.fillColor = SKColor.white
         avalanche.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: UIScreen.main.bounds.width, height: Avalanche.height))
         avalanche.zPosition = 2
@@ -100,19 +98,17 @@ class GravityScene: SKScene {
         avalanche.physicsBody?.contactTestBitMask = 0b001
         avalanche.name = "avalanche"
         
-        
         //bottom
         let avalancheBottom = SKSpriteNode(imageNamed: "Avalanche")
+        avalancheBottom.size.width = UIScreen.main.bounds.width + 50
         avalancheBottom.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: UIScreen.main.bounds.width, height: 20))
         avalancheBottom.position.y = Avalanche.initialPosition - (Avalanche.height / 2)
-        avalancheBottom.physicsBody?.affectedByGravity = false
-        avalancheBottom.physicsBody?.isDynamic = false
-        
         avalancheBottom.position.x = UIScreen.main.bounds.width / 2
         avalancheBottom.zPosition = 3
+        avalancheBottom.physicsBody?.affectedByGravity = false
+        avalancheBottom.physicsBody?.isDynamic = false
         avalancheBottom.physicsBody?.categoryBitMask = 0b1000
         avalancheBottom.physicsBody?.collisionBitMask = 0b1000
-        
         
         avalancheContainer.addChild(avalanche)
         avalancheContainer.addChild(avalancheBottom)
@@ -195,7 +191,6 @@ class GravityScene: SKScene {
         }
         
         avalancheContainer.position.y -= CGFloat(deltaTime * (70 + Double(points)))
-        
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -223,7 +218,6 @@ class GravityScene: SKScene {
             updateLabel()
         }
     }
-    
 }
 
 extension GravityScene: SKPhysicsContactDelegate {
@@ -232,7 +226,6 @@ extension GravityScene: SKPhysicsContactDelegate {
         let score = UserDefaults.standard.integer(forKey: UserDefaultsValues.HIGHEST_SCORE.rawValue)
         if points > score {
             UserDefaults.standard.set(points, forKey: UserDefaultsValues.HIGHEST_SCORE.rawValue)
-            
         }
     }
     
@@ -249,7 +242,6 @@ extension GravityScene: SKPhysicsContactDelegate {
                 self.gravitySceneDelegate?.finish()
             })
     }
-    
     
     func didBegin(_ contact: SKPhysicsContact) {
         if (contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "avalanche") || (contact.bodyA.node?.name == "avalanche" && contact.bodyB.node?.name == "player") {
