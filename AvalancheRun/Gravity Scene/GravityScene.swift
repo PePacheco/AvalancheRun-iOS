@@ -50,11 +50,11 @@ class GravityScene: SKScene {
             NotificationCenter.default.addObserver(self, selector: #selector(willResignActivity), name: UIApplication.willResignActiveNotification, object: nil)
         }
         
-        //        if #available(iOS 13.0, *) {
-        //            NotificationCenter.default.addObserver(self, selector: #selector(willRestartActivity), name: UIScene.willEnterForegroundNotification, object: nil)
-        //        } else {
-        //            NotificationCenter.default.addObserver(self, selector: #selector(willRestartActivity), name: UIApplication.willEnterForegroundNotification, object: nil)
-        //        }
+        if #available(iOS 13.0, *) {
+            NotificationCenter.default.addObserver(self, selector: #selector(willRestartActivity), name: UIScene.didActivateNotification, object: nil)
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(willRestartActivity), name: UIApplication.didBecomeActiveNotification, object: nil)
+        }
         
         
         createPlayer()
@@ -72,12 +72,13 @@ class GravityScene: SKScene {
     }
     
     @objc func willResignActivity() {
-        self.gravitySceneDelegate?.finish()
+        self.isPaused = true
     }
     
-    //    @objc func willRestartActivity() {
-    //
-    //    }
+    @objc func willRestartActivity() {
+        self.isPaused = false
+        
+    }
     
     func createBackground() {
         background.size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -212,6 +213,11 @@ class GravityScene: SKScene {
     }
     
     private func updateAvalanchePosition(_ deltaTime: TimeInterval) {
+        
+        if deltaTime > 2.0 {
+            return
+        }
+        
         if avalancheContainer.position.y + CGFloat(Avalanche.height / 2) - cameraNode.position.y > UIScreen.main.bounds.height / 2 {
             avalancheContainer.position.y = cameraNode.position.y + ((UIScreen.main.bounds.height - Avalanche.height) / 2)
         }
