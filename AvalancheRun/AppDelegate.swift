@@ -13,9 +13,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
+        UIApplication.shared.isIdleTimerDisabled = true
         return true
     }
 

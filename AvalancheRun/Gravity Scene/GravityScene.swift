@@ -25,6 +25,7 @@ class GravityScene: SKScene {
     private var player = SKSpriteNode(imageNamed: "Personagem")
     private var background = SKSpriteNode(imageNamed: "Cenário")
     private var avalancheContainer = SKNode()
+    let avalancheBottom = SKSpriteNode(imageNamed: "Avalanche")
     private var avalanche = SKShapeNode(rectOf: CGSize(width: UIScreen.main.bounds.width, height: Avalanche.height))
     private var cameraNode = SKCameraNode()
     private var motionManager = CMMotionManager()
@@ -37,8 +38,25 @@ class GravityScene: SKScene {
     private let holeTranslationVariant: CGFloat = 40
     private var oldCurrentTime: Double = -1
     internal weak var gravitySceneDelegate: GravitySceneDelegate?
+    private var worldNode: SKNode = SKNode()
     
     override func didMove(to view: SKView) {
+        
+        
+        
+        if #available(iOS 13.0, *) {
+            NotificationCenter.default.addObserver(self, selector: #selector(willResignActivity), name: UIScene.willDeactivateNotification, object: nil)
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(willResignActivity), name: UIApplication.willResignActiveNotification, object: nil)
+        }
+        
+        //        if #available(iOS 13.0, *) {
+        //            NotificationCenter.default.addObserver(self, selector: #selector(willRestartActivity), name: UIScene.willEnterForegroundNotification, object: nil)
+        //        } else {
+        //            NotificationCenter.default.addObserver(self, selector: #selector(willRestartActivity), name: UIApplication.willEnterForegroundNotification, object: nil)
+        //        }
+        
+        
         createPlayer()
         configureBallMovement()
         addCamera()
@@ -52,6 +70,14 @@ class GravityScene: SKScene {
         
         physicsWorld.contactDelegate = self
     }
+    
+    @objc func willResignActivity() {
+        self.gravitySceneDelegate?.finish()
+    }
+    
+    //    @objc func willRestartActivity() {
+    //
+    //    }
     
     func createBackground() {
         background.size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -99,7 +125,7 @@ class GravityScene: SKScene {
         avalanche.name = "avalanche"
         
         //bottom
-        let avalancheBottom = SKSpriteNode(imageNamed: "Avalanche")
+        
         avalancheBottom.size.width = UIScreen.main.bounds.width + 50
         avalancheBottom.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: UIScreen.main.bounds.width, height: 20))
         avalancheBottom.position.y = Avalanche.initialPosition - (Avalanche.height / 2)

@@ -35,7 +35,6 @@ class MenuViewController: UIViewController {
         banner.rootViewController = self
         view.addSubview(banner)
         
-        //banner.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
